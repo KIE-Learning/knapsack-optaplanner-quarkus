@@ -13,21 +13,22 @@ public class KnapsackConstraintProvider implements ConstraintProvider {
 
     @Override
     public Constraint[] defineConstraints(ConstraintFactory constraintFactory) {
-        return new Constraint[] { 
-            maxWeight(constraintFactory),
-            maxValue(constraintFactory)
+        return new Constraint[] {
+                maxWeight(constraintFactory),
+                maxValue(constraintFactory)
         };
     }
 
     /*
-     * 
+     *
      * rule "Max Weight" when Knapsack($maxWeight: maxWeight) accumulate(
      * Ingot(selected == true, $weight: weight); $totalWeight : sum($weight);
      * $totalWeight > $maxWeight ) Ingot(selected == true)
-     * 
+     *
      * then scoreHolder.penalize(kcontext, $totalWeight - $maxWeight); end
      */
 
+    //Add hard constraint here
     private Constraint maxWeight(ConstraintFactory constraintFactory) {
         return constraintFactory.from(Ingot.class).filter(i -> i.getSelected())
                 .groupBy(ConstraintCollectors.sum(i -> i.getWeight())).join(Knapsack.class)
@@ -41,8 +42,10 @@ public class KnapsackConstraintProvider implements ConstraintProvider {
      */
     private Constraint maxValue(ConstraintFactory constraintFactory) {
         return constraintFactory.from(Ingot.class)
-                    .filter(Ingot::getSelected)
-                    .reward("Max Value", HardSoftScore.ONE_SOFT, Ingot::getValue);
+                .filter(Ingot::getSelected)
+                .reward("Max Value", HardSoftScore.ONE_SOFT, Ingot::getValue);
     }
+    //Add soft constraint here
+
 
 }

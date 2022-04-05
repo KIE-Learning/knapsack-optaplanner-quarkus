@@ -15,6 +15,4 @@ public class Knapsack {
         this.maxWeight = maxWeight;
     }
 
-    
-
 }

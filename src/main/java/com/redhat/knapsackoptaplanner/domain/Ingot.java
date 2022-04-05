@@ -6,6 +6,8 @@ import org.optaplanner.core.api.domain.variable.PlanningVariable;
 /**
  * Ingot
  */
+
+//Add PlanningEntity annotation
 @PlanningEntity
 public class Ingot {
 
@@ -13,6 +15,7 @@ public class Ingot {
 
     private int value;
 
+    //Add Planning Variable annotation
     @PlanningVariable(valueRangeProviderRefs = "selected")
     private Boolean selected;
 
